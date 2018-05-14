@@ -1,0 +1,29 @@
+{
+  "name": "glabot",
+  "version": "1.2.2",
+  "description": "Creation of GLABot",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varshneydevansh/glaubot.git"
+  },
+  "author": "Devansh Varshney",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "node-twitterbot": "^0.2.2",
+    "redis": "^2.8.0",
+    "twit": "^2.2.9",
+    "unique-random-array": "^1.0.1",
+    "unirest": "^0.5.1"
+  },
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/varshneydevansh/glaubot/issues"
+  },
+  "homepage": "https://github.com/varshneydevansh/glaubot#readme"
+}
