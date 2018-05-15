@@ -58,119 +58,121 @@ stream.on('follow', followed);
 function followed(event) {
   var name = event.source.name;
   var screenName = event.source.screen_name;
-  console.log('I was followed by: ' + name + ' ' + screenName);
+  console.log('I was followed by: ' + name + ' @' + screenName);
+  var toooo = 'GLAU is now followed by: ' + name + ' @' + screenName;
+  tweetIt(toooo);
 }
 
 // Now looking for tweet events
 // See: https://dev.twitter.com/streaming/userstreams
-stream.on('tweet', tweetEvent);
-
-// Here a tweet event is triggered!
-function tweetEvent(tweet) {
-
-  // If we wanted to write a file out
-  // to look more closely at the data
-  // var fs = require('fs');
-  // var json = JSON.stringify(tweet,null,2);
-  // fs.writeFile("tweet.json", json, output);
-
-  // Who is this in reply to?
-  var reply_to = tweet.in_reply_to_screen_name;
-  // Who sent the tweet?
-  var name = tweet.user.screen_name;
-  // What is the text?
-  var txt = tweet.text;
-  // If we want the conversation thread
-  var id = tweet.id_str;
-
-  // Ok, if this was in reply to me
-  // Tweets by me show up here too
-  if (reply_to === 'GLAu_BOT') {
-
-    // Get rid of the @ mention
-    txt = txt.replace(/@GLAu_BOT/g,'');
-
-    // Start a reply back to the sender
-    var replyText = '@'+name + ' ';
-    // Reverse their text
-    for (var i = txt.length-1; i >= 0; i--) {
-      replyText += txt.charAt(i);
-    }
-
-    // Post that tweet
-    T.post('statuses/update', { status: replyText, in_reply_to_status_id: id}, tweeted);
-
-    // Make sure it worked!
-    function tweeted(err, reply) {
-      if (err) {
-        console.log(err.message);
-      } else {
-        console.log('Tweeted: ' + reply.text);
-      }
-    }
-}
-}
-
-
-
-
-
-
-
-
-
-
-// var stream = T.stream('user');
-
-// stream.on('follow', followed);
-// // Just looking at the event but I could tweet back!
-// function followed(event) {
-//   var name = event.source.name;
-//   var screenName = event.source.screen_name;
-//   tweetIt('Thank you: @' + screenName + ' for following GLAU.');
-// }
-// //stream.on('tweet', tweetEvent);
-
-
 // stream.on('tweet', tweetEvent);
 
-// function tweetEvent(eventMsg)
-// {
-// 	//var fs = require('fs');
-// 	//var json = JSON.stringify(eventMsg, null, 10);
-// 	//fs.writeFile("tweet.json", json);
+// // Here a tweet event is triggered!
+// function tweetEvent(tweet) {
 
-// 	var replyto = eventMsg.in_reply_to_screen_name;
-// 	var text = eventMsg.text;
-// 	var from = eventMsg.user.screen_name;
-// 	console.log(replyto + ' ' + from);
-// 	if(replyto == 'GLAu_BOT')
-// 	{
-// 		var newtweet = '@' + from + ' thank you for tweeting to GLA University';
-// 		tweetIt(newtweet);
-// 	}
-// };
+//   // If we wanted to write a file out
+//   // to look more closely at the data
+//   // var fs = require('fs');
+//   // var json = JSON.stringify(tweet,null,2);
+//   // fs.writeFile("tweet.json", json, output);
+
+//   // Who is this in reply to?
+//   var reply_to = tweet.in_reply_to_screen_name;
+//   // Who sent the tweet?
+//   var name = tweet.user.screen_name;
+//   // What is the text?
+//   var txt = tweet.text;
+//   // If we want the conversation thread
+//   var id = tweet.id_str;
+
+//   // Ok, if this was in reply to me
+//   // Tweets by me show up here too
+//   if (reply_to === 'GLAu_BOT') {
+
+//     // Get rid of the @ mention
+//     txt = txt.replace(/@GLAu_BOT/g,'');
+
+//     // Start a reply back to the sender
+//     var replyText = '@'+name + ' ';
+//     // Reverse their text
+//     for (var i = txt.length-1; i >= 0; i--) {
+//       replyText += txt.charAt(i);
+//     }
+
+//     // Post that tweet
+//     T.post('statuses/update', { status: replyText, in_reply_to_status_id: id}, tweeted);
+
+//     // Make sure it worked!
+//     function tweeted(err, reply) {
+//       if (err) {
+//         console.log(err.message);
+//       } else {
+//         console.log('Tweeted: ' + reply.text);
+//       }
+//     }
+// }
+// }
 
 
-// function tweetIt(txt)
-// {
-// 	var tweet = {
-// 		status: txt
-// 	}
 
-// 	T.post('statuses/update', tweet, tweeted);
 
-// 	function tweeted(err, data, responce){	
-// 		if(err){
-// 			console.log("Something went Wrong!");
-// 		}
-// 		else{
-// 			console.log("Worked!");	
-// 		}
+
+
+
+
+
+
+var stream = T.stream('user');
+
+stream.on('follow', followed);
+// Just looking at the event but I could tweet back!
+function followed(event) {
+  var name = event.source.name;
+  var screenName = event.source.screen_name;
+  tweetIt('Thank you: @' + screenName + ' for following GLAU.');
+}
+//stream.on('tweet', tweetEvent);
+
+
+ stream.on('tweet', tweetEvent);
+
+function tweetEvent(eventMsg)
+{
+	//var fs = require('fs');
+	//var json = JSON.stringify(eventMsg, null, 10);
+	//fs.writeFile("tweet.json", json);
+
+	var replyto = eventMsg.in_reply_to_screen_name;
+	var text = eventMsg.text;
+	var from = eventMsg.user.screen_name;
+	console.log(replyto + ' ' + from);
+	if(replyto == 'GLAu_BOT')
+	{
+		var newtweet = '@' + from + ' thank you for tweeting to GLA University';
+		tweetIt(newtweet);
+	}
+};
+ 	
+
+function tweetIt(txt)
+{
+	var tweet = {
+		status: txt
+	}
+
+	T.post('statuses/update', tweet, tweeted);
+
+	function tweeted(err, data, responce){	
+		if(err){
+			console.log("Something went Wrong!");
+		}
+		else{
+			console.log("Worked!");	
+		}
 	
-// 	}
+	}
 
-// };
+};
 
 
 
@@ -237,4 +239,3 @@ function tweetEvent(tweet) {
 //     }
 //   }
 // }
-
