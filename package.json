@@ -1,6 +1,6 @@
 {
   "name": "glabot",
-  "version": "1.2.2",
+  "version": "1.3.1",
   "description": "Creation of GLABot",
   "main": "bot.js",
   "scripts": {
