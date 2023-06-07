@@ -19,7 +19,7 @@
     "redis": "^2.8.0",
     "twit": "^2.2.9",
     "unique-random-array": "^1.0.1",
-    "unirest": "^0.5.1"
+    "unirest": "^0.6.0"
   },
   "devDependencies": {},
   "bugs": {
